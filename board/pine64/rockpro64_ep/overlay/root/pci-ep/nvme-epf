@@ -8,6 +8,7 @@ nrq=4
 debug=0
 mmio=0
 bufferedio=0
+nrt=""
 
 transport="loop"
 looppath="/dev/sda"
@@ -36,6 +37,7 @@ function usage()
 	echo "  -d | --debug                   : Turn on epf, nvme and pci kernel debug messages"
 	echo "  -m | --mmio                    : Force mmio transfers (disable DMA)"
 	echo "  -b | --buffered-io             : Used buffered IOs on the target."
+	echo "  --threads <num>                : Number of transfer threads"
 	echo "  -q | --nr-io-queues <num>      : Set maximum number of I/O queues."
 	echo "  -l | --loop <path>             : Connect to file or block device nvme_loop target."
 	echo "  -t | --tcp <addr> <port> <nqn> : Connect to nvme_tcp target."
@@ -67,6 +69,10 @@ while [ "${1#-}" != "$1" ]; do
 		;;
 	-b | --buffered-io)
 		bufferedio=1
+		;;
+	--threads)
+		shift
+		nrt=$1
 		;;
 	-q | --nr-io-queues)
 		shift
@@ -281,6 +287,12 @@ function nvme_epf_start()
 		echo "    Disabling DMA"
 		echo "0" > "functions/pci_epf_nvme/${FUNC}/nvme/dma_enable" || \
 			exit_failed "Disable DMA failed"
+	fi
+
+	if [ ! -z "${nrt}" ]; then
+		echo "Setting ${nrt} threads"
+		echo "${nrt}" > "functions/pci_epf_nvme/${FUNC}/nvme/num_xfer_threads" || \
+			echo "Could not set ${nrt} threads, defaulting to 1"
 	fi
 
 	echo "    Set NVMe controller options"
