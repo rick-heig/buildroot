@@ -18,6 +18,8 @@ tcpport=""
 
 ctrlopts=""
 
+model="Linux pci_epf"
+
 function exit_failed()
 {
 	echo "$1"
@@ -42,6 +44,7 @@ function usage()
 	echo "  -l | --loop <path>             : Connect file or block device using nvme_loop"
 	echo "                                   target (default: use null_blk and /dev/nullb0)."
 	echo "  -t | --tcp <addr> <port> <nqn> : Connect to nvme_tcp target."
+	echo "  -M | --model <model>           : Model Name"
 }
 
 # Check options
@@ -93,8 +96,12 @@ while [ "${1#-}" != "$1" ]; do
 		shift
 		subsys="$1"
 		;;
+	-M | --model)
+		shift
+		model="$1"
+		;;
 	-*)
-		echo "Unknow option $1"
+		echo "Unknown option $1"
 		exit 1
 		;;
 	esac
@@ -140,7 +147,7 @@ function nvme_setup_loop()
 	cd /sys/kernel/config/nvmet/subsystems
 	mkdir "${subsys}"
 
-	echo -n "Linux pci_epf" > ${subsys}/attr_model
+	echo -n "${model}" > ${subsys}/attr_model
 	echo 1 > ${subsys}/attr_allow_any_host
 	echo 4 > ${subsys}/attr_qid_max
 
