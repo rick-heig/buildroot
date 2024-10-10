@@ -1,10 +1,10 @@
-RADXA ROCK 5B
-==============
-https://wiki.radxa.com/Rock5/hardware/5b
+FRIENDLYELEC CM3588 + NAS Kit
+=============================
+https://wiki.friendlyelec.com/wiki/index.php/CM3588
 
 Build:
 ======
-  $ make rock5b_ep_defconfig
+  $ make cm3588_nas_ep_defconfig
   $ make
 
 Files created in output directory
@@ -37,14 +37,6 @@ Booting:
 
 Serial console:
 ---------------
-The Rock 5B has a 40-pin GPIO header. Its layout can be seen here:
-https://wiki.radxa.com/Rock5/hardware/5b/gpio
-
-The Uart pins are as follows:
-
-pin 6:  gnd
-pin 8:  tx
-pin 10: rx
 
 Baudrate for this board is 1500000.
 
@@ -54,4 +46,4 @@ Enter 'root' as login user, and the prompt is ready.
 
 wiki link:
 ----------
-https://forum.radxa.com/c/rock5
+https://wiki.friendlyelec.com/wiki/index.php/CM3588
