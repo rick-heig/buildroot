@@ -1,45 +1,26 @@
-RADXA ROCK 5B
-==============
+FriendlyElec RK3588 boards
+==========================
 
-https://wiki.radxa.com/Rock5/hardware/5b
+https://wiki.friendlyelec.com/wiki/index.php/CM3588
 
 Build:
 ======
 
 First, apply the configuration:
 
-  $ make rock5b_ep_defconfig
+  $ make cm3588_ep_defconfig
 
-Next build the default endpoint image (Gen3 x 4 link):
+Next build the default endpoint image (For CM3588 + NAS Kit):
 
   $ make
 
-To build the endpint image with the link width limited to a single lane:
+To build the endpint image with for the NanoPC T6:
 
-  $ make EPONELANE=y
+  $ make TSIX=y
 
-To build the root-complex (RC) host image:
+To build the endpint image with for the U2 CSD:
 
-  $ make RCHOST=y
-
-Files created in output directory
-=================================
-
-output/images
-.
-├── bl31.elf
-├── Image
-├── rk3588_ddr_lp4_2112MHz_lp5_2736MHz_v1.12.bin
-├── rk3588-rock-5b.dtb
-├── rk3588-rock-5b-pcie-ep-1lane.dtbo
-├── rk3588-rock-5b-pcie-ep.dtbo
-├── rk3588-rock-5b-pcie-srns.dtbo
-├── rootfs.ext2
-├── rootfs.ext4
-├── rootfs.tar
-├── sdcard.img
-├── u-boot.bin
-└── u-boot-rockchip.bin
+  $ make UTWO=y
 
 Creating bootable SD card:
 ==========================
@@ -55,14 +36,6 @@ Booting:
 
 Serial console:
 ---------------
-The Rock 5B has a 40-pin GPIO header. Its layout can be seen here:
-https://wiki.radxa.com/Rock5/hardware/5b/gpio
-
-The Uart pins are as follows:
-
-pin 6:  gnd
-pin 8:  tx
-pin 10: rx
 
 Baudrate for this board is 1500000.
 
@@ -74,4 +47,4 @@ Login as root is automatic without password.
 wiki link:
 ----------
 
-https://forum.radxa.com/c/rock5
+https://wiki.friendlyelec.com/wiki/index.php/CM3588

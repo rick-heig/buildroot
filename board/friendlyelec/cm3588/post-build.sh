@@ -1,16 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 BOARD_DIR="$(dirname "$0")"
 
-if [ "${RCHOST}" == "y" ]; then
-	echo "RC post build"
-	install -m 0644 -D "$BOARD_DIR"/extlinux-rc.conf "$TARGET_DIR"/boot/extlinux/extlinux.conf
-elif [ "${EPONELANE}" == "y" ]; then
-	echo "EP (one lane) post build"
-	install -m 0644 -D "$BOARD_DIR"/extlinux-ep-onelane.conf "$TARGET_DIR"/boot/extlinux/extlinux.conf
+if [ "${UTWO}" == "y" ]; then
+	echo "U2 CSD EP post build"
+	install -m 0644 -D "$BOARD_DIR"/extlinux-u2-ep.conf "$TARGET_DIR"/boot/extlinux/extlinux.conf
+elif [ "${TSIX}" == "y" ]; then
+	echo "T6 EP post build"
+	install -m 0644 -D "$BOARD_DIR"/extlinux-t6-ep.conf "$TARGET_DIR"/boot/extlinux/extlinux.conf
 else
-	echo "EP post build"
-	install -m 0644 -D "$BOARD_DIR"/extlinux-ep.conf "$TARGET_DIR"/boot/extlinux/extlinux.conf
+	echo "CM3588 NAS EP post build"
+	install -m 0644 -D "$BOARD_DIR"/extlinux-cm3588-ep.conf "$TARGET_DIR"/boot/extlinux/extlinux.conf
 fi
 
 # Automatic login
