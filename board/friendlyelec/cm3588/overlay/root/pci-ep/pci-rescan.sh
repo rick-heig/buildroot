@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Rescan PCI bus
 echo "Rescanning PCI bus..."
